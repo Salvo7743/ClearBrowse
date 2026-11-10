@@ -1,0 +1,8 @@
+*.xcodeproj
+Supporting/
+build/
+DerivedData/
+Payload/
+*.ipa
+build.log
+errors.txt

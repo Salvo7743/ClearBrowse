@@ -1,0 +1,47 @@
+name: Clearbrowse
+options:
+  bundleIdPrefix: dev.clearwatch
+  deploymentTarget:
+    tvOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  Clearbrowse:
+    type: application
+    platform: tvOS
+    sources:
+      - path: Clearbrowse
+    settings:
+      base:
+        PRODUCT_NAME: Clearbrowse
+        PRODUCT_BUNDLE_IDENTIFIER: dev.clearwatch.browser
+        TARGETED_DEVICE_FAMILY: "3"
+        # The web engine is reached through a small Objective-C wrapper (Clearbrowse/Bridge).
+        SWIFT_OBJC_BRIDGING_HEADER: Clearbrowse/Bridge/Clearbrowse-Bridging-Header.h
+        CLANG_ENABLE_OBJC_ARC: YES
+        CLANG_ENABLE_MODULES: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: "App Icon & Top Shelf Image"
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    info:
+      path: Supporting/Info.plist
+      properties:
+        CFBundleDisplayName: Clearbrowse
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UIRequiredDeviceCapabilities: [arm64]
+        UIUserInterfaceStyle: Dark
+        ITSAppUsesNonExemptEncryption: false
+        # A browser has to be able to open plain http pages and streams too.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        # tvOS 26 and later won't launch an app that doesn't declare its scenes.
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
