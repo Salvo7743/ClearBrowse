@@ -16,6 +16,7 @@ struct MenuView: View {
 
     @State private var address = ""
     @State private var path: [MenuRoute] = []
+    @Namespace private var focusScope
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 28), count: 4)
 
@@ -27,9 +28,11 @@ struct MenuView: View {
                     addressField
                     actions
                     bookmarks
+                    remoteHelp
                 }
                 .padding(.horizontal, 90)
                 .padding(.vertical, 60)
+                .focusScope(focusScope)
             }
             .navigationDestination(for: MenuRoute.self) { route in
                 switch route {
@@ -75,9 +78,11 @@ struct MenuView: View {
     private var actions: some View {
         LazyVGrid(columns: columns, spacing: 28) {
             if model.hasVideo {
+                // Starts focused, so full screen is Play/Pause and then one click.
                 MenuButton(title: "Full Screen Video", systemImage: "arrow.up.left.and.arrow.down.right") {
                     browser.closeMenu { browser.enterTheater() }
                 }
+                .prefersDefaultFocus(true, in: focusScope)
             }
             if model.playerURL != nil {
                 MenuButton(title: "Open in Apple TV Player", systemImage: "play.rectangle") {
@@ -148,6 +153,12 @@ struct MenuView: View {
                 }
             }
         }
+    }
+
+    private var remoteHelp: some View {
+        Text("Remote: swipe to move the cursor, click to select, arrow buttons to scroll. Play/Pause opens this menu and Back closes it.")
+            .font(.caption)
+            .foregroundStyle(.secondary)
     }
 
     // MARK: Helpers
@@ -288,7 +299,7 @@ struct SettingsView: View {
             } header: {
                 Text("Remote")
             } footer: {
-                Text("Swipe to move the cursor; push against an edge to scroll. Click to select. The arrow buttons scroll. Play/Pause opens this menu, or makes a playing video full screen (hold it to get the menu instead). Back leaves full screen, then goes back a page.")
+                Text("Swipe to move the cursor; push against an edge to scroll. Click to select. The arrow buttons scroll. Play/Pause opens the menu. Back goes back a page. In full-screen video, Play/Pause pauses, left and right skip 10 seconds, and Back leaves full screen.")
             }
 
             Section {

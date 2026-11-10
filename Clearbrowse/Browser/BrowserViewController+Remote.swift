@@ -5,7 +5,7 @@ import UIKit
 /// - Swipe: move the cursor. Pushing against an edge scrolls the page.
 /// - Click: click whatever is under the cursor.
 /// - Arrow clicks: scroll (in full-screen video: skip back and forward).
-/// - Play/Pause: full screen when a video is playing, otherwise the menu. Hold for the menu.
+/// - Play/Pause: the menu. In full-screen video it pauses and resumes; holding it opens the menu.
 /// - Back: leave full screen, or go back a page.
 extension BrowserViewController: RemoteEventHandler {
     func handleRemoteEvent(_ event: UIEvent) -> Bool {
@@ -140,11 +140,12 @@ extension BrowserViewController: RemoteEventHandler {
         }
     }
 
+    /// Outside full screen this always opens the menu, whatever the page is doing, so there is
+    /// always one obvious way to leave a site. (It used to start full screen when a video was
+    /// playing, which left no clear way to the menu on sites where a video is always playing.)
     private func playPauseTapped() {
         if theaterActive {
             runCommand("media", ["toggle"], frame: theaterFrame)
-        } else if let video = activeVideo, video.isPlaying, video.isAudible {
-            enterTheater()
         } else {
             showMenu()
         }

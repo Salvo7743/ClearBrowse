@@ -42,7 +42,7 @@ extension BrowserViewController {
 
         if isPlaying, isAudible, !didShowVideoHint, !theaterActive, presentedViewController == nil {
             didShowVideoHint = true
-            showToast("Press Play/Pause to watch full screen.", duration: 5)
+            showToast("For full screen, press Play/Pause and choose Full Screen Video.", duration: 6)
         }
     }
 
@@ -129,10 +129,9 @@ extension BrowserViewController {
         if starting {
             resetRemoteState()
             showCursor()
-            if !didShowTheaterHint {
-                didShowTheaterHint = true
-                showToast("Play/Pause to pause, left and right to skip, Back to leave full screen.", duration: 6)
-            }
+            // Full screen changes what the buttons do, so say how to get out every time.
+            showToast("Back leaves full screen. Play/Pause pauses; left and right skip.", duration: didShowTheaterHint ? 3.5 : 7)
+            didShowTheaterHint = true
         }
 
         letterbox.setHole(shown)

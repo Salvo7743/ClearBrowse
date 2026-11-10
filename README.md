@@ -4,8 +4,8 @@ A web browser for Apple TV (tvOS 17+) that plays web video, built to be sideload
 [atvloadly](https://github.com/bitxeno/atvloadly).
 
 - **Real web pages.** Uses the WebKit engine that tvOS ships but doesn't offer to apps.
-- **Video plays in the page**, including streaming players, and goes **full screen** with one
-  press.
+- **Video plays in the page**, including streaming players, and goes **full screen** from the
+  menu or the site's own full-screen button.
 - **Apple TV player** for videos that have a plain address (MP4 or HLS), with the page's cookies.
 - A cursor driven by the Siri Remote, an on-screen keyboard for text fields, bookmarks, history,
   page zoom, desktop/tablet/phone modes, and pop-up blocking.
@@ -20,7 +20,7 @@ system classes. It is for personal, sideloaded use.
 | Swipe | Move the cursor. Push against an edge to scroll. |
 | Click | Click what's under the cursor. Text fields open the keyboard. |
 | Arrow buttons | Scroll. In full-screen video: skip back / forward 10 seconds. |
-| Play/Pause | Full screen when a video is playing, otherwise the menu. Hold for the menu. |
+| Play/Pause | Open the menu, which offers **Full Screen Video** when the page has one. In full screen: pause and resume. |
 | Back | Leave full screen, then go back a page. With nowhere to go back to, leaves the app. |
 
 A site's own full-screen button works too.

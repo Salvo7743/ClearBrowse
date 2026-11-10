@@ -327,6 +327,8 @@ final class BrowserViewController: UIViewController {
         }
         wantsMenu = false
         resetRemoteState()
+        // The menu belongs to the page at its normal size; full screen is re-entered from it.
+        endTheater(tellPage: true)
         syncModel()
 
         let host = UIHostingController(rootView: MenuView(browser: self, model: model))
